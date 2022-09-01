@@ -1,0 +1,16 @@
+# kubectl expose deployment hostname-server --port=80 --target-port=9376 -n test-ota-uat
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   labels:
+#     app: hostnames
+#   name: hostnames
+# spec:
+#   selector:
+#     app: hostnames
+#   ports:
+#   - name: default
+#     protocol: TCP
+#     port: 80
+#     targetPort: 9376

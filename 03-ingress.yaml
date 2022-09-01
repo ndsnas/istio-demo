@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ilb-demo-istio-ingress
+  annotations:
+    ingress.gcp.kubernetes.io/pre-shared-cert: "np-private-gcpppv-tech"
+    kubernetes.io/ingress.class: "gce-internal"
+    kubernetes.io/ingress.allow-http: "false"
+spec:
+  rules:
+    - host: test-ota-dev.np.private.gcpppv.tech
+      http:
+        paths:
+          - backend:
+              service:
+                name: istio-ingressgateway
+                port:
+                  number: 80
+            path: /test
+            pathType: ImplementationSpecific
+    - host: test-ota-uat.np.private.gcpppv.tech
+      http:
+        paths:
+          - backend:
+              service:
+                name: istio-ingressgateway
+                port:
+                  number: 80
+            path: /test
+            pathType: ImplementationSpecific

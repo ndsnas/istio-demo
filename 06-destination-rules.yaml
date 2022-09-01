@@ -1,0 +1,35 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: hostserver-gateway-uat
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "test-ota-uat.np.private.gcpppv.tech"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: hostserver-vs-uat
+spec:
+  exportTo:
+    - .
+    - istio-ingress
+  hosts:
+    - "test-ota-uat.np.private.gcpppv.tech"
+  gateways:
+    - hostserver-gateway-uat
+  http:
+    - match:
+        - uri:
+      route:
+        - destination:
+            host: hostname-server
+            port:
+              number: 80
